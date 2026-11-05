@@ -29,13 +29,26 @@ const mainNavigation = document.getElementById("mainNavigation");
 
 /* PROGRESS TRACKER ELEMENTS */
 
-const publishedCountElement = document.getElementById("publishedCount");
-const remainingCountElement = document.getElementById("remainingCount");
-const totalCountElement = document.getElementById("totalCount");
-const progressPercentElement = document.getElementById("progressPercent");
-const progressFill = document.getElementById("progressFill");
-const progressBar = document.getElementById("progressBar");
-const progressNote = document.getElementById("progressNote");
+const publishedCountElement =
+    document.getElementById("publishedCount");
+
+const remainingCountElement =
+    document.getElementById("remainingCount");
+
+const totalCountElement =
+    document.getElementById("totalCount");
+
+const progressPercentElement =
+    document.getElementById("progressPercent");
+
+const progressFill =
+    document.getElementById("progressFill");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const progressNote =
+    document.getElementById("progressNote");
 
 
 /* 2. CATEGORY INFORMATION */
@@ -851,7 +864,7 @@ themeToggle.addEventListener("click", () => {
     } catch (error) {
 
         console.warn(
-            "Could not save saved theme preference.",
+            "Could not save theme preference.",
             error
         );
 
@@ -860,33 +873,48 @@ themeToggle.addEventListener("click", () => {
 });
 
 
-/* 22. ABOUT NAVIGATION WITHOUT URL FRAGMENT */
+/* 22. HOME AND ABOUT NAVIGATION WITHOUT URL FRAGMENTS */
 
-document.querySelectorAll('a[href="#about"]').forEach(link => {
+document.querySelectorAll(
+    'a[href="#top"], a[href="#about"]'
+).forEach(link => {
 
     link.addEventListener("click", event => {
 
-        const aboutSection = document.getElementById("about");
+        const targetId =
+            link.getAttribute("href").substring(1);
 
-        if (!aboutSection) {
+        const targetSection =
+            document.getElementById(targetId);
+
+        if (!targetSection) {
             return;
         }
 
-        // Prevent #about from appearing in the address bar.
+        // Prevent the URL fragment from appearing.
+
         event.preventDefault();
 
-        // Scroll to the About section.
-        aboutSection.scrollIntoView({
+        // Scroll to the selected section.
+
+        targetSection.scrollIntoView({
             behavior: "smooth",
             block: "start"
         });
 
-        // Keep the homepage URL unchanged.
+        // Keep the homepage URL clean.
+
         history.replaceState(
             null,
             "",
             window.location.pathname + window.location.search
         );
+
+        // Close mobile navigation if open.
+
+        closeMobileMenu();
+
+        closeCategoriesMenu();
 
     });
 
