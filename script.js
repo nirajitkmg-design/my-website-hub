@@ -29,26 +29,13 @@ const mainNavigation = document.getElementById("mainNavigation");
 
 /* PROGRESS TRACKER ELEMENTS */
 
-const publishedCountElement =
-    document.getElementById("publishedCount");
-
-const remainingCountElement =
-    document.getElementById("remainingCount");
-
-const totalCountElement =
-    document.getElementById("totalCount");
-
-const progressPercentElement =
-    document.getElementById("progressPercent");
-
-const progressFill =
-    document.getElementById("progressFill");
-
-const progressBar =
-    document.getElementById("progressBar");
-
-const progressNote =
-    document.getElementById("progressNote");
+const publishedCountElement = document.getElementById("publishedCount");
+const remainingCountElement = document.getElementById("remainingCount");
+const totalCountElement = document.getElementById("totalCount");
+const progressPercentElement = document.getElementById("progressPercent");
+const progressFill = document.getElementById("progressFill");
+const progressBar = document.getElementById("progressBar");
+const progressNote = document.getElementById("progressNote");
 
 
 /* 2. CATEGORY INFORMATION */
@@ -864,7 +851,7 @@ themeToggle.addEventListener("click", () => {
     } catch (error) {
 
         console.warn(
-            "Could not save theme preference.",
+            "Could not save saved theme preference.",
             error
         );
 
@@ -873,7 +860,40 @@ themeToggle.addEventListener("click", () => {
 });
 
 
-/* 22. INITIALISE WEBSITE HUB */
+/* 22. ABOUT NAVIGATION WITHOUT URL FRAGMENT */
+
+document.querySelectorAll('a[href="#about"]').forEach(link => {
+
+    link.addEventListener("click", event => {
+
+        const aboutSection = document.getElementById("about");
+
+        if (!aboutSection) {
+            return;
+        }
+
+        // Prevent #about from appearing in the address bar.
+        event.preventDefault();
+
+        // Scroll to the About section.
+        aboutSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+        // Keep the homepage URL unchanged.
+        history.replaceState(
+            null,
+            "",
+            window.location.pathname + window.location.search
+        );
+
+    });
+
+});
+
+
+/* 23. INITIALISE WEBSITE HUB */
 
 updateCategoryButtons("all");
 
